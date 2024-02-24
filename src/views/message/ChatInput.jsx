@@ -1,5 +1,6 @@
 import { useState} from 'react'
 import axios from 'axios'
+import { API_ENDPOINT } from '../../constants'
 
 const ChatInput = ({ user, clickedUser, getUserMessages, getClickedUsersMessages }) => {
     const [textArea, setTextArea] = useState("")
@@ -15,7 +16,7 @@ const ChatInput = ({ user, clickedUser, getUserMessages, getClickedUsersMessages
         }
 
         try {
-            await axios.post('http://localhost:8000/message', { message })
+            await axios.post(`${API_ENDPOINT}/message`, { message })
             getUserMessages()
             getClickedUsersMessages()
             setTextArea("")

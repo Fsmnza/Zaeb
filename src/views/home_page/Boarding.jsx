@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_ENDPOINT } from '../../constants';
 
 const OnBoarding = () => {
     const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -30,7 +31,7 @@ const OnBoarding = () => {
         console.log('submitted')
         e.preventDefault()
         try {
-            const response = await axios.put('http://localhost:8000/user', {formData})
+            const response = await axios.put(`${API_ENDPOINT}/user`, {formData})
             console.log(response)
             const success = response.status === 200
             if (success) navigate('/dashboard')

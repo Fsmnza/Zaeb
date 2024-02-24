@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { API_ENDPOINT } from "../../constants";
 
 const MatchesDisplay = ({ matches, setClickedUser }) => {
   const [matchedProfiles, setMatchedProfiles] = useState(null);
@@ -12,7 +13,7 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
 
   const getMatches = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/users", {
+      const response = await axios.get(`${API_ENDPOINT}/users`, {
         params: { userIds: JSON.stringify(matchedUserIds) },
       });
       setMatchedProfiles(response.data);

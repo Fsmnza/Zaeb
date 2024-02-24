@@ -3,6 +3,7 @@ import axios from 'axios'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import { API_ENDPOINT } from '../../constants'
 
 const AuthModal = ({ setShowModal,  isSignUp }) => {
     const [email, setEmail] = useState(null)
@@ -29,7 +30,7 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
                 return
             }
 
-            const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
+            const response = await axios.post(`${API_ENDPOINT}/${isSignUp ? 'signup' : 'login'}`, { email, password })
 
             setCookie('AuthToken', response.data.token)
             setCookie('UserId', response.data.userId)
