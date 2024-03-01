@@ -8,6 +8,18 @@ body{
   margin: 0;
   padding: 0;
   color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+}
+ 
+code {
+  font-family: source-code-pro, Menlo, 
+               Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .bn29 {
@@ -108,6 +120,44 @@ body{
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }
 
+.bn632-hover-mini {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover-mini:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover-mini:focus {
+  outline: none;
+}
+
+.bn632-hover-mini.bn25-mini {
+  background-image: linear-gradient(
+    to right,
+    #29323c,
+    #485563,
+    #2b5876,
+    #4e4376
+  );
+  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
 .auth-modal {
   background-color: rgb(57, 55, 70);
   border-radius: 10px;
@@ -122,16 +172,26 @@ input[type="password"],
 input[type="date"]{
   width: 100%;
   padding: 10px 20px;
-  margin-bottom: 12px;
   border-radius: 20px;
   color: black;
 }
+
 input[type="submit"]{
   width: 100%;
-  padding: 10px 20px;
-  margin-bottom: 12px;
   border-radius: 20px;
   color: white;
+}
+
+input[type="submit"].small_submit{
+  width: auto;
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+input[type="text"].small_text{
+  width: 60%;
+  padding: 6px 20px;
+  font-size: 14px;
 }
 
 input[type="radio"] + label,
@@ -154,4 +214,52 @@ input[type=radio]:checked + label {
 
 input:focus {
   outline: none;
+}
+.swipe {
+  position: absolute;
+}
+
+.dashboard .card-container {
+  width: 100%;
+  height: 80vh;
+  display: flex; /* Add display flex */
+  justify-content: center; /* Center cards horizontally */
+  align-items: center; /* Center cards vertically */
+}
+
+.card {
+  width: 100%;
+  max-width: 30rem; /* Limit card width */
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.dashboard .swipe-info {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+}
+
+.messageInput{
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.messageInput input[type=text]{
+  padding: 4px 15px;
+  margin: 0;
+  width: 74%;
+}
+
+.messageInput input[type=submit]{
+  padding: 4px 15px;
+  width: 24%;
 }

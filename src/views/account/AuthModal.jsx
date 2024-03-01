@@ -5,53 +5,58 @@ import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { API_ENDPOINT } from '../../constants'
 
-const AuthModal = ({ setShowModal,  isSignUp }) => {
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [confirmPassword, setConfirmPassword] = useState(null)
-    const [error, setError] = useState(null)
-    const [ setCookie] = useCookies(null)
-
-    let navigate = useNavigate()
-
-    console.log(email, password, confirmPassword)
-
+const AuthModal = ({ setShowModal, isSignUp }) => {
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [error, setError] = useState(null);
+    const [, setCookie] = useCookies(null);
+    const navigate = useNavigate();
 
     const handleClick = () => {
-        setShowModal(false)
-    }
+        setShowModal(false);
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-            if (isSignUp && (password !== confirmPassword)) {
-                setError('Passwords need to match!')
-                return
+            if (isSignUp && password !== confirmPassword) {
+                setError('Passwords need to match!');
+                return;
             }
 
-            const response = await axios.post(`${API_ENDPOINT}/${isSignUp ? 'signup' : 'login'}`, { email, password })
+            // Оберните асинхронный код внутри функции с ключевым словом async
+            const response = await axios.post(`${API_ENDPOINT}/${isSignUp ? 'signup' : 'login'}`, {
+                email,
+                password,
+            });
 
-            setCookie('AuthToken', response.data.token)
-            setCookie('UserId', response.data.userId)
+            setCookie('AuthToken', response.data.token);
+            setCookie('UserId', response.data.userId);
 
-            const success = response.status === 201
-            if (success && isSignUp) navigate ('/onboarding')
-            if (success && !isSignUp) navigate ('/dashboard')
+            const success = response.status === 200;
 
-            window.location.reload()
+            if (success) {
+                if (isSignUp) navigate('/onboarding');
+                else navigate('/dashboard');
 
+                // Закрываем модальное окно
+                setShowModal(false);
+
+                // Перезагружаем страницу
+                window.location.reload();
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.message);
+            setError(error.response.data.message);
         }
-
-    }
-
+    };
     return (
         <div className='absolute w-sm h-full flex items-center'>
             <div className="auth-modal max-w-sm">
                 <div className='flex w-full justify-end'>
-                    <XMarkIcon className='w-6 h-6 right-[0px]' onClick={handleClick}/>
+                    <XMarkIcon className='w-6 h-6 right-[0px] cursor-pointer' onClick={handleClick}/>
                 </div>
                 <h2 className='text-center text-2xl mb-6'>{isSignUp ? 'CREATE ACCOUNT': 'LOG IN'}</h2>
                 <form onSubmit={handleSubmit}>
@@ -61,6 +66,7 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
                         name="email"
                         placeholder="email"
                         required={true}
+                        className='mb-2'
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
@@ -69,6 +75,7 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
                         name="password"
                         placeholder="password"
                         required={true}
+                        className='mb-2'
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {isSignUp && <input
@@ -77,6 +84,7 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
                         name="password-check"
                         placeholder="confirm password"
                         required={true}
+                        className='mb-2'
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />}
                     <input className="mt-3 bn632-hover bn25" type="submit" value="Submit" />
@@ -88,4 +96,5 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
         </div>
     )
 }
+
 export default AuthModal

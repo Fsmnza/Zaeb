@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../constants';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 
 const OnBoarding = () => {
     const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -44,7 +45,6 @@ const OnBoarding = () => {
         console.log('e', e)
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
         const name = e.target.name
-
         setFormData((prevState) => ({
             ...prevState,
             [name]: value
@@ -103,10 +103,17 @@ const OnBoarding = () => {
         }
     };
 
+    const handleBack = () => {
+        window.history.back(); // Go back to the previous location
+    };
+
     return (
         <>
             <div className="px-4 py-2">
-                <h2 className='text-center text-3xl mb-6 mt-4'>Profile</h2>
+                <div className=''>
+                    <ChevronLeftIcon className='w-8 h-8 absolute cursor-pointer' onClick={handleBack} />
+                    <h2 className='text-center text-3xl mb-6 mt-4'>Profile</h2>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <section>
                         <label className='text-lg' htmlFor="url">Profile Photo</label>
@@ -145,6 +152,7 @@ const OnBoarding = () => {
                             placeholder="First Name"
                             required={true}
                             value={formData.first_name}
+                            className='mb-2'
                             onChange={handleChange}
                         />
 
@@ -156,6 +164,7 @@ const OnBoarding = () => {
                             id="dob_date"
                             value={formData.dob_date}
                             onChange={handleChange}
+                            className='mb-2'
                             required />
                         </div>
 
@@ -223,6 +232,7 @@ const OnBoarding = () => {
                             placeholder='Height(cm)'
                             value={formData.height}
                             onChange={handleChange}
+                            className='mb-2'
                             required />
                         </div>
 
@@ -235,6 +245,7 @@ const OnBoarding = () => {
                             required={true}
                             value={formData.job}
                             onChange={handleChange}
+                            className='mb-2'
                         />
 
                         <label className='text-lg' htmlFor="country">Country</label>
@@ -246,6 +257,7 @@ const OnBoarding = () => {
                             required={true}
                             value={formData.country}
                             onChange={handleChange}
+                            className='mb-2'
                         />
 
                         <label className='text-lg' htmlFor="city">City</label>
@@ -257,6 +269,7 @@ const OnBoarding = () => {
                             required={true}
                             value={formData.city}
                             onChange={handleChange}
+                            className='mb-2'
                         />
 
                         <label className='text-lg' htmlFor="hobbies">Hobbies</label>
@@ -271,7 +284,7 @@ const OnBoarding = () => {
                                         required={true}
                                         value={hobby}
                                         onChange={(e) => handleChangeHobbies(e, index)}
-                                        className="w-full rounded-xl text-black px-4 py-2 outline-none"
+                                        className="w-full rounded-xl text-black px-4 py-2 outline-none mb-2"
                                     />
                                 </div>
                             ))}
@@ -400,6 +413,7 @@ const OnBoarding = () => {
                             required={true}
                             value={formData.education}
                             onChange={handleChange}
+                            className='mb-2'
                         />
 
                         <label className='text-lg'>Personality type</label>
@@ -543,7 +557,7 @@ const OnBoarding = () => {
 
                         <label className='text-lg' htmlFor="about">About me</label>
                         <textarea name="about" id="about" className='w-full mt-2 rounded-xl text-black px-4 py-2 outline-none' rows="10"></textarea>
-                        <input className="mt-3 mb-6 bn632-hover bn25 w-full" type="submit" value="Submit" />
+                        <input className="mt-3 bn632-hover bn25 w-full" type="submit" value="Submit" />
                     </section>
                 </form>
             </div>

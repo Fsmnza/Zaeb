@@ -1,42 +1,42 @@
 import React from 'react';
+import AuthModal from './AuthModal.jsx';
+
 const Accountpage = () => {
+  const [showLoginModal, setShowLoginModal] = React.useState(false);
+  const [showSignUpModal, setShowSignUpModal] = React.useState(false);
+
   return (
-    <div className="container">
-      <div className="header">
-        <h1>Your Dating App</h1>
-      </div>
-
-      <div className="content">
-        <h2>Account</h2>
-
-        {/* Login Form */}
-        <div className="login-form">
-          <h3>Login</h3>
-          <form>
-            <label>Email:</label>
-            <input type="email" placeholder="Enter your email" />
-            <label>Password:</label>
-            <input type="password" placeholder="Enter your password" />
-            <button className="button" type="submit">Login</button>
-          </form>
+      <div className="container">
+        <div className="header">
+          <h1>Your Dating App</h1>
         </div>
 
-        {/* Signup Form */}
-        <div className="signup-form">
-          <h3>Sign Up</h3>
-          <form>
-            <label>Email:</label>
-            <input type="email" placeholder="Enter your email" />
-            <label>Password:</label>
-            <input type="password" placeholder="Enter your password" />
-            <label>Confirm Password:</label>
-            <input type="password" placeholder="Confirm your password" />
-            <button className="button" type="submit">Sign Up</button>
-          </form>
+        <div className="content">
+          <h2>Account</h2>
+
+          {/* Login Form */}
+          <div className="login-form">
+            <h3>Login</h3>
+            <button onClick={() => setShowLoginModal(true)}>Login</button>
+          </div>
+
+          {/* Signup Form */}
+          <div className="signup-form">
+            <h3>Sign Up</h3>
+            <button onClick={() => setShowSignUpModal(true)}>Sign Up</button>
+          </div>
         </div>
-      
+
+        {/* Модальное окно для входа */}
+        {showLoginModal && (
+            <AuthModal setShowModal={setShowLoginModal} isSignUp={false}/>
+        )}
+
+        {/* Модальное окно для регистрации */}
+        {showSignUpModal && (
+            <AuthModal setShowModal={setShowSignUpModal} isSignUp={true}/>
+        )}
       </div>
-    </div>
   );
 };
 

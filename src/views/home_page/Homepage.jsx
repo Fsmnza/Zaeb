@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import AuthModal from '../account/AuthModal';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -46,6 +46,9 @@ const HomePage = () => {
         )}
       <div className='w-full items-center justify-center flex mt-5'>
         <button className="bn29" type="button" onClick={handleClick1}>Profile settings</button>
+      </div>
+      <div className='w-full items-center justify-center flex mt-5'>
+        <Link to='/dashboard' className="bn29 text-center" >Dashboard</Link>
       </div>  
       </div>
       {showModal && (
